@@ -43,6 +43,8 @@
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Number</th>
                                                 <th scope="col">Phone Number</th>
+                                                <th scope="col">Send Count</th>
+                                                <th scope="col">Receive Count</th>
                                                 <th width="200px">Action</th>
                                             </tr>
                                         </thead>
@@ -60,6 +62,12 @@
                                                     </td>
                                                     <td>
                                                         <%= data[i].phone_number%>
+                                                    </td>
+                                                    <td>
+                                                        <%= data[i].send_count%>
+                                                    </td>
+                                                    <td>
+                                                        <%= data[i].receive_count%>
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-success edit" href="../inmates/edit/<%=data[i].id%>">Edit</a>
