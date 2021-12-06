@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Payments</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+
+  </style>
+</head>
+
+<body class="container" style="margin-top: 50px;">
+  <%- include('../menu.ejs') %>
+
+  <% if (messages.success) { %>
+  <div class="alert alert-success" role="alert">
+    <%- messages.success %>
+  </div>
+  <% } %>
+
+  <% if (messages.error) { %>
+  <div class="alert alert-danger" role="alert">
+    <%- messages.error %>
+  </div>
+  <% } %>
+  <div class="row">
+    <div class="col-md-3 mt-3"></div>
+    <div class="col-md-6 mt-3">
+      <form action="/payment/buy">
+
+        <div class="mb-3">
+          <label for="inmatesList" class="form-label">Inmates:</label>
+          <select id="inmatesList" class="form-control" name="inmateNumber" aria-label="Default select example">
+            <option selected>Select Inmate</option>
+            <% if(data.length) { %>
+            <% for(var i = 0; i< data.length; i++) { %>
+            <option value="<%= data[i].number%>"><%= data[i].name%> (<%= data[i].number%>)</option>
+            <% } %>
+            <% } %>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount:</label>
+          <input type="number" class="form-control" id="amount" name="amount" value="10">
+        </div>
+        <h2> An introduction to CloudCorr </h2>
+        <hr>
+        <b> Description: </b> If you pay $10, your friend can use this service for 1 month.
+        <hr>
+        <button class="btn btn-warning btn-lg">Pay now</button>
+      </form>
+    </div>
+    <div class="col-md-3 mt-3">
+
+    </div>
+  </div>
+</body>
+
+</html>
