@@ -103,8 +103,9 @@ router.get('/success', (req, res) => {
             console.log(error);
         } else {
             console.log(item[0].approved_until);
-            let approveDate = new Date(item[0].approved_until);
-            console.log(approveDate)
+            let approveDate = item[0].approved_until || new Date();
+            approveDate = new Date(approveDate);
+            console.log(approveDate);
             approveDate.setMonth(approveDate.getMonth() + count);
             console.log(approveDate)
             let data = {
