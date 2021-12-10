@@ -132,9 +132,8 @@ router.get('/success', (req, res) => {
                             throw error;
                         } else {
                             console.log(JSON.stringify(payment));
-                            res.send('Success');
                             // res.render('payment/success', { payInmateNumber, payAmount });
-                            // res.render('payment/success', { payInmateNumber, payAmount, approveDate });
+                            res.render('payment/success', { payInmateNumber, payAmount, approveDate });
                         }
                     });
                 }
