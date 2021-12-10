@@ -16,13 +16,7 @@ var keywordsRouter = require('./routes/keywords');
 var paymentRouter = require('./routes/payment');
 
 var app = express();
-// var paypal = require('paypal-rest-sdk');
 
-// paypal.configure({
-//     'mode': 'sandbox',
-//     'client_id': 'AVrTY9IbOorMiALM0KXOlNd9TN6T5RyZjowCqRu9yQ92cWZxDRt_kYXX-FpXs-W5ACPn7lRaGY4nc37Z',
-//     'client_secret': 'ENEa0ol2_LjtwO44aio95TXf8H5ys2TbXcHFRKHHaEnOMIXk5Wt6QQDkZtNI4ywPtxGxCQhYbf8ANU6j'
-// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

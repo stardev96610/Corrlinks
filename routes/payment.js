@@ -4,11 +4,11 @@ var dbConn = require('../lib/db');
 var paypal = require('paypal-rest-sdk');
 var payInmateNumber;
 var payAmount;
-paypal.configure({
-    'mode': 'sandbox',
-    'client_id': 'AVrTY9IbOorMiALM0KXOlNd9TN6T5RyZjowCqRu9yQ92cWZxDRt_kYXX-FpXs-W5ACPn7lRaGY4nc37Z',
-    'client_secret': 'ENEa0ol2_LjtwO44aio95TXf8H5ys2TbXcHFRKHHaEnOMIXk5Wt6QQDkZtNI4ywPtxGxCQhYbf8ANU6j'
-});
+// paypal.configure({
+//     'mode': 'sandbox',
+//     'client_id': 'AVrTY9IbOorMiALM0KXOlNd9TN6T5RyZjowCqRu9yQ92cWZxDRt_kYXX-FpXs-W5ACPn7lRaGY4nc37Z',
+//     'client_secret': 'ENEa0ol2_LjtwO44aio95TXf8H5ys2TbXcHFRKHHaEnOMIXk5Wt6QQDkZtNI4ywPtxGxCQhYbf8ANU6j'
+// });
 // display keywords page
 router.get('/', function(req, res, next) {
     dbConn.query('SELECT * FROM inmates ORDER BY id desc', function(err, rows) {
