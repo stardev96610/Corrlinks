@@ -26,56 +26,54 @@ router.get('/', function(req, res, next) {
 
 // display buy page
 router.get('/buy', function(req, res, next) {
-
         // create payment object 
         console.log(req.query)
         let { inmateNumber, amount } = req.query;
         payInmateNumber = inmateNumber;
         payAmount = amount;
         let count = amount / 10;
-        res.redirect('success');
-        // var payment = {
-        //         "intent": "sale",
-        //         "payer": {
-        //             "payment_method": "paypal"
-        //         },
-        //         "redirect_urls": {
-        //             "return_url": "http://localhost:4000/payment/success",
-        //             "cancel_url": "http://localhost:4000/payment/err"
-        //         },
-        //         "transactions": [{
-        //             "item_list": {
-        //                 "items": [{
-        //                     "name": "month(s) approval for CloudCorr",
-        //                     "price": "10.00",
-        //                     "currency": "USD",
-        //                     "quantity": count
-        //                 }]
-        //             },
-        //             "amount": {
-        //                 "total": amount,
-        //                 "currency": "USD"
-        //             },
-        //             "description": "Washing Bar soap"
-        //         }]
-        //     }
-        //     // call the create Pay method 
-        // paypal.payment.create(payment, function(error, payment) {
-        //     if (error) {
-        //         payInmateNumber = '';
-        //         payAmount = '';
-        //         throw error;
-        //     } else {
-        //         for (let i = 0; i < payment.links.length; i++) {
-        //             if (payment.links[i].rel === 'approval_url') {
-        //                 console.log('-------------');
-        //                 console.log(payment.links[i].href);
-        //                 console.log('-------------');
-        //                 res.redirect(`${payment.links[i].href}?amount=${amount}`);
-        //             }
-        //         }
-        //     }
-        // });
+        var payment = {
+                "intent": "sale",
+                "payer": {
+                    "payment_method": "paypal"
+                },
+                "redirect_urls": {
+                    "return_url": "http://localhost:4000/payment/success",
+                    "cancel_url": "http://localhost:4000/payment/err"
+                },
+                "transactions": [{
+                    "item_list": {
+                        "items": [{
+                            "name": "month(s) approval for CloudCorr",
+                            "price": "10.00",
+                            "currency": "USD",
+                            "quantity": count
+                        }]
+                    },
+                    "amount": {
+                        "total": amount,
+                        "currency": "USD"
+                    },
+                    "description": "Washing Bar soap"
+                }]
+            }
+            // call the create Pay method 
+        paypal.payment.create(payment, function(error, payment) {
+            if (error) {
+                payInmateNumber = '';
+                payAmount = '';
+                throw error;
+            } else {
+                for (let i = 0; i < payment.links.length; i++) {
+                    if (payment.links[i].rel === 'approval_url') {
+                        console.log('-------------');
+                        console.log(payment.links[i].href);
+                        console.log('-------------');
+                        res.redirect(`${payment.links[i].href}?amount=${amount}`);
+                    }
+                }
+            }
+        });
         // createPay(payment)
         //     .then((transaction) => {
         //         var id = transaction.id;
