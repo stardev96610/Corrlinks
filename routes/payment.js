@@ -37,8 +37,8 @@ router.get('/buy', function(req, res, next) {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": "/payment/success",
-                    "cancel_url": "/payment/err"
+                    "return_url": "http://cloudcorr.com/payment/success",
+                    "cancel_url": "http://cloudcorr.com/payment/err"
                 },
                 "transactions": [{
                     "item_list": {
