@@ -37,6 +37,8 @@ router.get('/buy', function(req, res, next) {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
+                    // "return_url": "http://localhost:4000/payment/success",
+                    // "cancel_url": "http://localhost:4000/payment/err",
                     "return_url": "http://cloudcorr.com/payment/success",
                     "cancel_url": "http://cloudcorr.com/payment/err"
                 },
@@ -94,56 +96,49 @@ router.get('/buy', function(req, res, next) {
     })
     // success page 
 router.get('/success', (req, res) => {
-    let count = payAmount / 10;
-    console.log(count)
-    console.log(payInmateNumber);
-    dbConn.query(`SELECT approved_until FROM inmates WHERE number=${payInmateNumber}`, (error, item) => {
+    const payerId = req.query.PayerID;
+    const paymentId = req.query.paymentId;
+    const execute_payment_json = {
+        "payer_id": payerId,
+    };
+    paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
+        //When error occurs when due to non-existent transaction, throw an error else log the transaction details in the console then send a Success string reposponse to the user.
         if (error) {
-            console.log(error);
+            console.log(error.response);
+            payInmateNumber = '';
+            payAmount = '';
+            throw error;
         } else {
-            console.log(item[0].approved_until);
-            let approveDate = item[0].approved_until || new Date();
-            approveDate = new Date(approveDate);
-            console.log(approveDate);
-            approveDate.setMonth(approveDate.getMonth() + count);
-            console.log(approveDate)
-            let data = {
-                approved_until: approveDate,
-                state: 0
-            }
-            approveDate = approveDate.toLocaleDateString()
-            dbConn.query(`UPDATE inmates SET ? WHERE number=${payInmateNumber}`, data, (error, item) => {
+            let count = payAmount / 10;
+            console.log(count)
+            console.log(payInmateNumber);
+            dbConn.query(`SELECT approved_until FROM inmates WHERE number=${payInmateNumber}`, (error, item) => {
                 if (error) {
                     console.log(error);
                 } else {
-                    // console.log(item);
-                    const payerId = req.query.PayerID;
-                    const paymentId = req.query.paymentId;
-
-                    const execute_payment_json = {
-                        "payer_id": payerId,
-
-                    };
-                    paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
-                        //When error occurs when due to non-existent transaction, throw an error else log the transaction details in the console then send a Success string reposponse to the user.
+                    let approveDate = item[0].approved_until || new Date();
+                    approveDate = new Date(approveDate);
+                    console.log(approveDate);
+                    approveDate.setMonth(approveDate.getMonth() + count);
+                    console.log(approveDate)
+                    let data = {
+                        approved_until: approveDate,
+                        state: 0
+                    }
+                    approveDate = approveDate.toLocaleDateString()
+                    dbConn.query(`UPDATE inmates SET ? WHERE number=${payInmateNumber}`, data, (error, item) => {
                         if (error) {
-                            console.log(error.response);
-                            payInmateNumber = '';
-                            payAmount = '';
-                            throw error;
+                            console.log(error);
                         } else {
-                            // console.log(JSON.stringify(payment));
-                            // res.render('payment/success', { payInmateNumber, payAmount });
-                            // dbConn.query(`UPDATE inmates SET state = 1 WHERE number=${payInmateNumber}`, (error) => {
-                            //     console.log(error);
-                            // })
+                            // console.log(item);
                             res.render('payment/success', { payInmateNumber, payAmount, approveDate });
                         }
-                    });
+                    })
                 }
-            })
+            });
         }
     });
+
 
 
 
