@@ -66,10 +66,7 @@ router.get('/buy', function(req, res, next) {
             } else {
                 for (let i = 0; i < payment.links.length; i++) {
                     if (payment.links[i].rel === 'approval_url') {
-                        console.log('-------------');
-                        console.log(payment.links[i].href);
-                        console.log('-------------');
-                        res.redirect(`${payment.links[i].href}?amount=${amount}`);
+                        res.redirect(payment.links[i].href);
                     }
                 }
             }
@@ -117,35 +114,36 @@ router.get('/success', (req, res) => {
                     console.log(error);
                 } else {
                     // console.log(item);
+                    const payerId = req.query.PayerID;
+                    const paymentId = req.query.paymentId;
+
+                    const execute_payment_json = {
+                        "payer_id": payerId,
+
+                    };
+                    paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
+                        //When error occurs when due to non-existent transaction, throw an error else log the transaction details in the console then send a Success string reposponse to the user.
+                        if (error) {
+                            console.log(error.response);
+                            payInmateNumber = '';
+                            payAmount = '';
+                            throw error;
+                        } else {
+                            // res.send('Success');
+                            console.log('-------------');
+                            console.log(JSON.stringify(payment));
+                            console.log('-------------');
+                            // res.render('payment/success', { payInmateNumber, payAmount });
+                            res.render('payment/success', { payInmateNumber, payAmount, approveDate });
+                        }
+                    });
                 }
             })
-            res.render('payment/success', { payInmateNumber, payAmount, approveDate });
         }
     });
 
 
-    // const payerId = req.query.PayerID;
-    // const paymentId = req.query.paymentId;
 
-    // const execute_payment_json = {
-    //     "payer_id": payerId,
-
-    // };
-    // paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
-    //     //When error occurs when due to non-existent transaction, throw an error else log the transaction details in the console then send a Success string reposponse to the user.
-    //     if (error) {
-    //         console.log(error.response);
-    //         payInmateNumber = '';
-    //         payAmount = '';
-    //         throw error;
-    //     } else {
-    //         // res.send('Success');
-    //         console.log('-------------');
-    //         console.log(JSON.stringify(payment));
-    //         console.log('-------------');
-    //         res.render('payment/success', { payInmateNumber, payAmount });
-    //     }
-    // });
     // console.log(req.query);
 
 })
