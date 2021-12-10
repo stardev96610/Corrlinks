@@ -32,8 +32,8 @@
 
         <div class="mb-3">
           <label for="inmatesList" class="form-label">Inmates:</label>
-          <select id="inmatesList" class="form-control" name="inmateNumber" aria-label="Default select example">
-            <option selected>Select Inmate</option>
+          <select id="inmatesList" class="form-control" name="inmateNumber" aria-label="Default select example" required>
+            <option value="" selected>Select Inmate</option>
             <% if(data.length) { %>
             <% for(var i = 0; i< data.length; i++) { %>
             <option value="<%= data[i].number%>"> <%= data[i].number%></option>
