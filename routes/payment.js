@@ -108,7 +108,8 @@ router.get('/success', (req, res) => {
             approveDate.setMonth(approveDate.getMonth() + count);
             console.log(approveDate)
             let data = {
-                approved_until: approveDate
+                approved_until: approveDate,
+                state: 0
             }
             approveDate = approveDate.toLocaleDateString()
             dbConn.query(`UPDATE inmates SET ? WHERE number=${payInmateNumber}`, data, (error, item) => {
@@ -133,6 +134,9 @@ router.get('/success', (req, res) => {
                         } else {
                             // console.log(JSON.stringify(payment));
                             // res.render('payment/success', { payInmateNumber, payAmount });
+                            // dbConn.query(`UPDATE inmates SET state = 1 WHERE number=${payInmateNumber}`, (error) => {
+                            //     console.log(error);
+                            // })
                             res.render('payment/success', { payInmateNumber, payAmount, approveDate });
                         }
                     });

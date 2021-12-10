@@ -29,18 +29,11 @@
     <div class="col-md-3 mt-3"></div>
     <div class="col-md-6 mt-3">
       <form action="/payment/buy">
-
         <div class="mb-3">
-          <label for="inmatesList" class="form-label">Inmates:</label>
-          <select id="inmatesList" class="form-control" name="inmateNumber" aria-label="Default select example" required>
-            <option value="" selected>Select Inmate</option>
-            <% if(data.length) { %>
-            <% for(var i = 0; i< data.length; i++) { %>
-            <option value="<%= data[i].number%>"> <%= data[i].number%></option>
-            <% } %>
-            <% } %>
-          </select>
+          <label for="amount" class="form-label">Inmate:</label>
+          <input type="text" class="form-control" id="inmateNumber" name="inmateNumber" required>
         </div>
+
         <div class="mb-3">
           <label for="amount" class="form-label">Amount:</label>
           <input type="number" class="form-control" id="amount" name="amount" value="10">
