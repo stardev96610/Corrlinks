@@ -27,7 +27,6 @@ router.get('/', function(req, res, next) {
 // display buy page
 router.get('/buy', function(req, res, next) {
         // create payment object 
-        console.log(req.query)
         let { inmateNumber, amount } = req.query;
         payInmateNumber = inmateNumber;
         payAmount = amount;
@@ -38,8 +37,8 @@ router.get('/buy', function(req, res, next) {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": "http://localhost:4000/payment/success",
-                    "cancel_url": "http://localhost:4000/payment/err"
+                    "return_url": "/payment/success",
+                    "cancel_url": "/payment/err"
                 },
                 "transactions": [{
                     "item_list": {
