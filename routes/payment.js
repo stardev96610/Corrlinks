@@ -66,6 +66,7 @@ router.get('/buy', function(req, res, next) {
             } else {
                 for (let i = 0; i < payment.links.length; i++) {
                     if (payment.links[i].rel === 'approval_url') {
+                        console.log(payment.links[i].href);
                         res.redirect(payment.links[i].href);
                     }
                 }
@@ -129,12 +130,12 @@ router.get('/success', (req, res) => {
                             payAmount = '';
                             throw error;
                         } else {
-                            // res.send('Success');
                             console.log('-------------');
                             console.log(JSON.stringify(payment));
                             console.log('-------------');
+                            res.send('Success');
                             // res.render('payment/success', { payInmateNumber, payAmount });
-                            res.render('payment/success', { payInmateNumber, payAmount, approveDate });
+                            // res.render('payment/success', { payInmateNumber, payAmount, approveDate });
                         }
                     });
                 }
