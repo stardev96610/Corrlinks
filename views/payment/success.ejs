@@ -1,26 +1,31 @@
 <div class="row">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
-        <div class="main">
-            <div class="row padder">
-                <div class="col-md-3 cover">
-                    <img src="/images/cover.png" class="img img-responsive" alt="book"> </img>
-                </div>
-                <div class="col-md-9">
-                    <h2 style="color: #33ff55;">
-                        Congratulations !
-                        <hr> Successfully completed payment.
-                    </h2>
-                    <hr>
-                    <a href="/payment">
-                        <button class="btn btn-warning btn-lg"> Back to home.  </button>
-                    </a>
-                    </a>
-                </div>
-            </div>
-
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <div class="main">
+      <div class="row padder">
+        <div class="col-md-3 cover">
         </div>
+        <div class="col-md-9">
+          <h2 style="color: #33ff55;">
+            Congratulations !
+            <hr> Successfully completed payment.
+          </h2>
+          <span><%= payInmateNumber%> : </span>
+          <span> : paid $<%= payAmount%> successfully</span>
+          <br>
+          <span>He approved until <%= approveDate%>.</span>
+
+
+          <hr>
+          <a href="/payment">
+            <button class="btn btn-warning btn-lg"> Back to home. </button>
+          </a>
+          </a>
+        </div>
+      </div>
+
     </div>
-    <div class="col-md-2">
-    </div>
+  </div>
+  <div class="col-md-2">
+  </div>

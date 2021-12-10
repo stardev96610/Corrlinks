@@ -43,6 +43,7 @@
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Number</th>
                                                 <th scope="col">Phone Number</th>
+                                                <th scope="col">Approved Date</th>
                                                 <th scope="col">Send Count</th>
                                                 <th scope="col">Receive Count</th>
                                                 <th width="200px">Action</th>
@@ -62,6 +63,9 @@
                                                     </td>
                                                     <td>
                                                         <%= data[i].phone_number%>
+                                                    </td>
+                                                    <td>
+                                                        <%= data[i].approved_until ? data[i].approved_until.toLocaleDateString() : ''%>
                                                     </td>
                                                     <td>
                                                         <%= data[i].send_count%>
