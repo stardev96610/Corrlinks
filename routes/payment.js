@@ -66,7 +66,9 @@ router.get('/buy', function(req, res, next) {
             } else {
                 for (let i = 0; i < payment.links.length; i++) {
                     if (payment.links[i].rel === 'approval_url') {
+                        console.log('-------------');
                         console.log(payment.links[i].href);
+                        console.log('-------------');
                         res.redirect(payment.links[i].href);
                     }
                 }
