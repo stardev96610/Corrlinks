@@ -51,3 +51,12 @@ input[type="password"] {
 .padder {
     padding-left: 10px;
 }
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.1rem;
+}
+
+.form-select:focus,
+.form-control:focus {
+    box-shadow: 0 0 0 0.1rem rgb(13 110 253 / 25%);
+}

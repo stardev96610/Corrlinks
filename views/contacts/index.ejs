@@ -4,12 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Inmates</title>
+  <title>Contacts</title>
   <%- include('../include.ejs') %>
 </head>
 
 <body class="container">
   <%- include('../menu.ejs') %>
+
   <% if (messages.success) { %>
   <div class="alert alert-success" role="alert">
     <%- messages.success %>
@@ -21,15 +22,31 @@
     <%- messages.error %>
   </div>
   <% } %>
-
+  <div class="container-fluid">
+    <form action="/contact/">
+      <div class="mt-3 mb-3">
+        <label for="inmateNumber" class="form-label">Inmate:</label>
+        <!-- <input type="text" class="form-control" id="inmateNumber" name="inmateNumber"> -->
+        <select class="form-select" id="inmateNumber" aria-label="Default select example">
+          <% for( let i = 0; i < inmates.length; i++ ) { %>
+          <% if (inmates[i].id == inmateId) { %>
+          <option value="<%= inmates[i].id %>" selected><%= inmates[i].number %> </option>
+          <% } else { %>
+          <option value="<%= inmates[i].id %>"><%= inmates[i].number %> </option>
+          <% } %>
+          <% } %>
+        </select>
+      </div>
+    </form>
+  </div>
   <div class="card">
     <div class="card-header">
       <ul class="nav nav-pills w-100 justify-content-between">
         <li class="nav-pill active">
-          <a class="nav-link">Inmates</a>
+          <a class="nav-link">Contacts</a>
         </li>
         <li class="nav-pill ml-auto">
-          <a class="nav-link active" href="/inmates/add">Add Inmate</a>
+          <a class="nav-link active" href="/contacts/add?inmateId=<%= inmateId %> ">Add Contact</a>
         </li>
       </ul>
     </div>
@@ -42,10 +59,6 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Number</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Approved Date</th>
-            <th scope="col">Send Count</th>
-            <th scope="col">Receive Count</th>
             <th width="200px">Action</th>
           </tr>
         </thead>
@@ -56,26 +69,14 @@
               <%= (i+1) %>
             </th>
             <td>
-              <%= data[i].name%>
+              <%= data[i].contact_name%>
             </td>
             <td>
-              <%= data[i].number%>
+              <%= data[i].contact_number%>
             </td>
             <td>
-              <%= data[i].phone_number%>
-            </td>
-            <td>
-              <%= data[i].approved_until ? data[i].approved_until.toLocaleDateString() : ''%>
-            </td>
-            <td>
-              <%= data[i].send_count%>
-            </td>
-            <td>
-              <%= data[i].receive_count%>
-            </td>
-            <td>
-              <a class="btn btn-success edit" href="../inmates/edit/<%=data[i].id%>">Edit</a>
-              <a class="btn btn-danger delete" href="../inmates/delete/<%=data[i].id%>">Delete</a>
+              <a class="btn btn-success edit" href="../contacts/edit/<%=data[i].id%>">Edit</a>
+              <a class="btn btn-danger delete" href="../contacts/delete/<%=data[i].id%>">Delete</a>
             </td>
           </tr>
           <% } %>
@@ -85,12 +86,19 @@
 
       <!-- if result is empty -->
       <% if(!data.length) { %>
-      <p class="text-center">No Inmate found!</p>
+      <p class="text-center">No Contact found!</p>
       <% } %>
 
     </div>
   </div>
 
 </body>
+<script>
+  let inmateSelect = document.getElementById('inmateNumber');
+  inmateSelect.addEventListener('change', (event) => {
+    console.log(event.target.value);
+    document.location.href = `/contacts?inmateId=${event.target.value}`;
+  })
+</script>
 
 </html>

@@ -55,7 +55,7 @@ router.get('/buy', function(req, res, next) {
                         "total": amount,
                         "currency": "USD"
                     },
-                    "description": "Washing Bar soap"
+                    "description": "CloudCorr"
                 }]
             }
             // call the create Pay method 

@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var inmatesRouter = require('./routes/inmates');
 var accountsRouter = require('./routes/accounts');
 var keywordsRouter = require('./routes/keywords');
+var contactRouter = require('./routes/contacts');
 var paymentRouter = require('./routes/payment');
 
 var app = express();
@@ -42,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/inmates', inmatesRouter);
 app.use('/accounts', accountsRouter);
 app.use('/keywords', keywordsRouter);
+app.use('/contacts', contactRouter);
 app.use('/payment', paymentRouter);
 
 // catch 404 and forward to error handler
