@@ -5,7 +5,7 @@ var dbConn = require('../lib/db');
 // display contacts page
 router.get('/', function(req, res, next) {
     // let inmateId = 4;
-    dbConn.query(`SELECT * FROM inmates ORDER BY id desc`, (error, inmates) => {
+    dbConn.query(`SELECT * FROM inmates`, (error, inmates) => {
         let inmateId = req.query.inmateId || inmates[0].id;
         console.log(inmateId)
         if (inmates.length) {
