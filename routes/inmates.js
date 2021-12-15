@@ -4,7 +4,7 @@ var dbConn = require('../lib/db');
 // display inmates page
 router.get('/', async function(req, res, next) {
 
-    dbConn.query('SELECT * FROM inmates ORDER BY id desc', function(err, rows) {
+    dbConn.query('SELECT * FROM inmates', function(err, rows) {
 
         if (err) {
             req.flash('error', err);
